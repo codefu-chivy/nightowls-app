@@ -60722,6 +60722,10 @@
 	        };
 
 	        _this.handleAttend = function (event, name, id, location, query) {
+	            if (!_this.context.authenticated) {
+	                alert("You must be signed in to access these features");
+	                return;
+	            }
 	            var text = event.target.textContent;
 	            fetch("/add-bar", {
 	                method: "post",
@@ -60777,35 +60781,19 @@
 	                "div",
 	                { className: "list-container" },
 	                _react2.default.createElement(
-	                    "ul",
-	                    { id: "sort" },
-	                    _react2.default.createElement(
-	                        "li",
-	                        null,
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "sort-button", onClick: this.handleSort },
-	                            "Sort by distance"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        null,
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "sort-button", onClick: this.handleSort },
-	                            "Sort by rating"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        null,
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "sort-button", onClick: this.handleSort },
-	                            "Sort by review count"
-	                        )
-	                    )
+	                    "button",
+	                    { className: "sort-button", onClick: this.handleSort },
+	                    "Sort by distance"
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { className: "sort-button", onClick: this.handleSort },
+	                    "Sort by rating"
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { className: "sort-button", onClick: this.handleSort },
+	                    "Sort by review count"
 	                ),
 	                _react2.default.createElement(
 	                    "h1",
@@ -60839,30 +60827,22 @@
 	                                " reviews"
 	                            ),
 	                            _react2.default.createElement(
-	                                _reactStormpath.Authenticated,
-	                                null,
-	                                _react2.default.createElement(
-	                                    "a",
-	                                    { className: "twitter", href: "http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight", target: "_blank" },
-	                                    _react2.default.createElement(
-	                                        "button",
-	                                        { className: "add-remove", onClick: function onClick(event) {
-	                                                return _this2.handleAttend(event, object.name, object.id, object.loc, object.query);
-	                                            } },
-	                                        "I'm going here tonight"
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                _reactStormpath.Authenticated,
-	                                null,
+	                                "a",
+	                                { className: "twitter", href: "http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight", target: "_blank" },
 	                                _react2.default.createElement(
 	                                    "button",
 	                                    { className: "add-remove", onClick: function onClick(event) {
 	                                            return _this2.handleAttend(event, object.name, object.id, object.loc, object.query);
 	                                        } },
-	                                    "Remove Me"
+	                                    "I'm going here tonight"
 	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "button",
+	                                { className: "add-remove", onClick: function onClick(event) {
+	                                        return _this2.handleAttend(event, object.name, object.id, object.loc, object.query);
+	                                    } },
+	                                "Remove Me"
 	                            )
 	                        ),
 	                        _react2.default.createElement(
