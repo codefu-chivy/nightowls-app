@@ -12,7 +12,7 @@ export default class Front extends React.Component {
             coordLat: "",
             coordLong: "",
             attending: false,
-            sorted: 0
+            sorted: 0,
         }
     }
     static contextTypes = {
@@ -86,6 +86,10 @@ export default class Front extends React.Component {
         }
     };
     handleAttend = (event, name, id, location, query) => {
+        if (!this.context.authenticated) {
+            alert("You must be signed in to access these features");
+            return;
+        }
         let text = event.target.textContent;
         fetch("/add-bar", {
             method: "post",
@@ -118,11 +122,9 @@ export default class Front extends React.Component {
         )
         let list = this.state.businessList ? (
             <div className="list-container">
-            <ul id="sort">
-              <li><button className="sort-button" onClick={this.handleSort}>Sort by distance</button></li>
-              <li><button className="sort-button" onClick={this.handleSort}>Sort by rating</button></li>
-              <li><button className="sort-button" onClick={this.handleSort}>Sort by review count</button></li>
-            </ul>
+              <button className="sort-button" onClick={this.handleSort}>Sort by distance</button>
+              <button className="sort-button" onClick={this.handleSort}>Sort by rating</button>
+              <button className="sort-button" onClick={this.handleSort}>Sort by review count</button>
             <h1 id="whats-in">What's in {this.state.businessList[0].loc}?</h1>
               {this.state.businessList.map((object, id) => {
                   /*let tooltip = object.users.length ? (<Tooltip id={id}>{object.users.map((user) => {
@@ -140,12 +142,8 @@ export default class Front extends React.Component {
                           <img className="busImg" src={object.image_url} alt={object.name}/>
                           <img className="ratings" src={object.rating_img_url_large} alt="ratings"/>
                           <h4>{object.review_count} reviews</h4>
-                          <Authenticated>
-                            <a className="twitter" href={"http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight"} target="_blank"><button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>I'm going here tonight</button></a>
-                          </Authenticated>
-                          <Authenticated>
-                            <button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>Remove Me</button>
-                          </Authenticated>
+                          <a className="twitter" href={"http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight"} target="_blank"><button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>I'm going here tonight</button></a>
+                          <button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>Remove Me</button>
                         </div>
                         <div className="data info-container">
                           <h2 className="info name">{object.name}</h2>
