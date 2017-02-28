@@ -12,6 +12,7 @@
   "dependencies": {
     "babel-core": "^6.23.1",
     "body-parser": "^1.16.1",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-stormpath": "^3.2.0",
     "modernizr": "^3.3.1",
