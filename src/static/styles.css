@@ -135,10 +135,15 @@ li {
     width: 190px !important;
     background-color: silver;
     margin-bottom: -250px;
+    box-shadow: 0 0 8px black;
+    border-radius: 2px;
 }
 .sort-button:hover {
     background-color: darkgrey;
     border: 1px solid dimgray;
+}
+.sort-button:active {
+    box-shadow: none;
 }
 .add-remove {
     display: block;
@@ -164,9 +169,14 @@ li {
         position: relative;
         right: 100px;
     }
+    .additional-info {
+        left: 100px;
+    }
     .review {
-        width: 60%;
+        width: 55%;
         margin-left: 160px;
+        position: relative;
+        right: 10px;
     }
     .sort-button {
         font-size: 14px !important;
@@ -189,24 +199,13 @@ li {
     .name {
         font-size: 30px;
     }
-    /*.info-container {
-        width: 30%;
-    }
-    .additional-info {
-        bottom: 300px;
-        width: 120px;
-    }
-    .name {
-        font-size: 30px;
-        width: 400px;
-    }*/
     #register, #login {
         width: 85%;
     }
 }
 @media screen and (max-width: 700px) {
     .additional-info {
-        visibility: hidden;
+        bottom: 280px;
     }
     #title {
         font-size: 60px;
@@ -215,15 +214,40 @@ li {
         font-size: 40px;
     }
     #heading-whole {
-        margin-top: 100px;
+        margin-top: 60px;
     }
     .info-container {
         float: none;
         width: 350px;
     }
+    .sort-button {
+        font-size: 10px;
+
+    }
+}
+@media screen and (max-width: 575px) {
+    .info-container {
+        border: none;
+    }
     .review {
+        font-size: 14px;
+        width: 35%;
+        right: 10px;
+    }
+    .name {
+        font-size: 20px;
+    }
+    .info {
         position: relative;
-        right: 50px;
+        right: 40px;
+    }
+    .review {
+        right: 30px;
+    }
+}
+@media screen and (max-width: 520px) {
+    .additional-info {
+        visibility: hidden;
     }
 }
 
