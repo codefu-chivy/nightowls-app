@@ -26666,50 +26666,38 @@
 	                "div",
 	                null,
 	                _react2.default.createElement(
-	                    "ul",
+	                    _reactStormpath.NotAuthenticated,
 	                    null,
 	                    _react2.default.createElement(
-	                        _reactStormpath.NotAuthenticated,
-	                        null,
+	                        _reactRouter.Link,
+	                        { to: "/register" },
 	                        _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: "/register" },
-	                                _react2.default.createElement(
-	                                    "button",
-	                                    { className: "user-auth" },
-	                                    "Sign Up"
-	                                )
-	                            )
+	                            "button",
+	                            { className: "user-auth" },
+	                            "Sign Up"
 	                        )
-	                    ),
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactStormpath.NotAuthenticated,
+	                    null,
 	                    _react2.default.createElement(
-	                        _reactStormpath.NotAuthenticated,
-	                        null,
+	                        _reactRouter.Link,
+	                        { to: "/login", className: "log" },
 	                        _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            _react2.default.createElement(
-	                                "button",
-	                                { className: "user-auth" },
-	                                _react2.default.createElement(_reactStormpath.LoginLink, { className: "log" })
-	                            )
+	                            "button",
+	                            { className: "user-auth" },
+	                            "Login"
 	                        )
-	                    ),
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactStormpath.Authenticated,
+	                    null,
 	                    _react2.default.createElement(
-	                        _reactStormpath.Authenticated,
-	                        null,
-	                        _react2.default.createElement(
-	                            "li",
-	                            null,
-	                            _react2.default.createElement(
-	                                "button",
-	                                { className: "user-auth" },
-	                                _react2.default.createElement(_reactStormpath.LogoutLink, { className: "log" })
-	                            )
-	                        )
+	                        "button",
+	                        { className: "user-auth" },
+	                        _react2.default.createElement(_reactStormpath.LogoutLink, { className: "log" })
 	                    )
 	                )
 	            );
@@ -60723,6 +60711,7 @@
 
 	        _this.handleAttend = function (event, name, id, location, query) {
 	            if (!_this.context.authenticated) {
+	                event.preventDefault();
 	                alert("You must be signed in to access these features");
 	                return;
 	            }
@@ -60828,12 +60817,12 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                "a",
-	                                { className: "twitter", href: "http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight", target: "_blank" },
+	                                { className: "twitter", href: "http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight", target: "_blank", onClick: function onClick(event) {
+	                                        return _this2.handleAttend(event, object.name, object.id, object.loc, object.query);
+	                                    } },
 	                                _react2.default.createElement(
 	                                    "button",
-	                                    { className: "add-remove", onClick: function onClick(event) {
-	                                            return _this2.handleAttend(event, object.name, object.id, object.loc, object.query);
-	                                        } },
+	                                    { className: "add-remove" },
 	                                    "I'm going here tonight"
 	                                )
 	                            ),
