@@ -8,11 +8,9 @@ export default class LoginLogout extends React.Component {
     render() {
         return (
             <div>
-              <ul>
-                <NotAuthenticated><li><Link to="/register"><button className="user-auth">Sign Up</button></Link></li></NotAuthenticated>
-                <NotAuthenticated><li><button className="user-auth"><LoginLink className="log"/></button></li></NotAuthenticated>
-                <Authenticated><li><button className="user-auth"><LogoutLink className="log"/></button></li></Authenticated>
-              </ul>
+                <NotAuthenticated><Link to="/register"><button className="user-auth">Sign Up</button></Link></NotAuthenticated>
+                <NotAuthenticated><Link to="/login" className="log"><button className="user-auth">Login</button></Link></NotAuthenticated>
+                <Authenticated><button className="user-auth"><LogoutLink className="log"/></button></Authenticated>
             </div>
         )
     }
