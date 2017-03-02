@@ -89,13 +89,12 @@ input:not(#search) {
 }
 .img-container {
     float: left;
-    margin-right: 30px;
 }
 .additional-info {
-    float: right;
+    width: 15%;
+    float: left;
     position: relative;
-    bottom: 200px;
-    left: 50px;
+    left: 150px;
 }
 .ratings {
     display: block;
@@ -103,9 +102,15 @@ input:not(#search) {
 #whats-in {
     font-family: sans-serif;
     font-size: 45px;
+    margin: 0px;
 }
 .info-container {
     text-align: left;
+    float: left;
+    position: relative;
+    bottom: 35px;
+    left: 100px;
+    width: 500px;
 }
 .name {
     font-size: 40px;
@@ -113,15 +118,14 @@ input:not(#search) {
 }
 .list-container {
     background-color: white;
-    width: 1000px;
+    width: 1100px;
     margin: 0px auto;
     box-shadow: 2px 2px 10px black;
     border-radius: 5px;
-    max-height: 99999px;
-    margin-bottom: 50px;
 }
 .in-container {
-    margin: 110px;
+    height: 300px;
+    margin: 50px;
     font-family: sans-serif;
 }
 li {
@@ -148,35 +152,37 @@ li {
 .add-remove {
     display: block;
     height: 35px !important;
+    width: 110px;
+    margin: 10px !important;
 }
 .twitter {
     text-decoration: none;
 }
 .review {
-    width: 400px;
-    margin-left: 200px;
+    width: 70%;
 }
-
-@media screen and (max-width: 1000px) {
-    body {
+@media screen and (max-width: 1460px) {
+    /*body {
         background-image: none;
         background-color: black;
-    }
+    }*/
     .list-container {
-        width: 95%;
+        width: 900px;
     }
-    .img-container, .info-container {
+    .info-container {
+        bottom: 25px;
+    }
+    .info {
         position: relative;
-        right: 100px;
+        right: 32px;
     }
     .additional-info {
-        left: 100px;
+        left: 40px;
     }
     .review {
-        width: 55%;
-        margin-left: 160px;
         position: relative;
-        right: 10px;
+        right: 30px;
+        width: 400px;
     }
     .sort-button {
         font-size: 14px !important;
@@ -187,7 +193,7 @@ li {
         width: 85%;
     }
     #whats-in {
-        font-size: 30px;
+        font-size: 35px;
     }
     .busImg {
         width: 80px;
@@ -198,15 +204,13 @@ li {
     }
     .name {
         font-size: 30px;
+        width: 350px;
     }
     #register, #login {
         width: 85%;
     }
 }
-@media screen and (max-width: 700px) {
-    .additional-info {
-        bottom: 280px;
-    }
+@media screen and (max-width: 940px) {
     #title {
         font-size: 60px;
     }
@@ -216,39 +220,72 @@ li {
     #heading-whole {
         margin-top: 60px;
     }
-    .info-container {
-        float: none;
-        width: 350px;
-    }
     .sort-button {
         font-size: 10px;
-
+    }
+    .list-container {
+        width: 600px;
+    }
+    .info-container, .review {
+        width: 250px;
+    }
+    .info-container {
+        left: 40px;
+    }
+    .additional-info {
+        left: 70px;
+        top: 20px;
     }
 }
-@media screen and (max-width: 575px) {
-    .info-container {
-        border: none;
+@media screen and (max-width: 625px) {
+    .list-container {
+        width: 380px;
+    }
+    .additional-info {
+        position: fixed;
+        visibility: hidden;
     }
     .review {
         font-size: 14px;
-        width: 35%;
-        right: 10px;
+        width: 80%;
+    }
+    .info-container {
+        width: 50%;
+        bottom: 15px;
     }
     .name {
         font-size: 20px;
+        width: 150px;
     }
-    .info {
+    .in-container {
+        width: 330px;
+    }
+}
+@media screen and (max-width: 410px) {
+    .sort-button {
+        display: block;
         position: relative;
-        right: 40px;
+        left: 130px;
+    }
+    .in-container {
+        width: 300px;
+    }
+    .list-container {
+        width: 360px;
+    }
+    .img-container {
+        position: relative;
+        right: 50px;
+    }
+    .info-container {
+        width: 160px;
+        left: 0px;
+    }
+    .name {
+        width: 50px; 
     }
     .review {
-        right: 30px;
+        font-size: 14px;
     }
 }
-@media screen and (max-width: 520px) {
-    .additional-info {
-        visibility: hidden;
-    }
-}
-
 
