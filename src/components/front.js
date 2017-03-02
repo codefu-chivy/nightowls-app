@@ -87,6 +87,7 @@ export default class Front extends React.Component {
     };
     handleAttend = (event, name, id, location, query) => {
         if (!this.context.authenticated) {
+            event.preventDefault();
             alert("You must be signed in to access these features");
             return;
         }
@@ -142,7 +143,7 @@ export default class Front extends React.Component {
                           <img className="busImg" src={object.image_url} alt={object.name}/>
                           <img className="ratings" src={object.rating_img_url_large} alt="ratings"/>
                           <h4>{object.review_count} reviews</h4>
-                          <a className="twitter" href={"http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight"} target="_blank"><button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>I'm going here tonight</button></a>
+                          <a className="twitter" href={"http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight"} target="_blank" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}><button className="add-remove">I'm going here tonight</button></a>
                           <button className="add-remove" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}>Remove Me</button>
                         </div>
                         <div className="data info-container">
