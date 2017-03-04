@@ -15,5 +15,11 @@ module.exports = {
         cacheDirectory: 'babel_cache'
       }
     }]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      "fetch": "imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch",
+      "Promise": "promise-polyfill"
+    })
+  ]
 }  
