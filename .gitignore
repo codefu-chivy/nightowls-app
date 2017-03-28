@@ -1,3 +1,4 @@
 /node_modules
 /.babelrc
 /babel_cache
+/yelp2.env
