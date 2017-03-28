@@ -108,9 +108,16 @@ export default class Front extends React.Component {
                 alert("You have not added yourself to this bar!");
             }
             else {
-                this.setState({
-                    businessList: this.handleSort(json.data)
-                });
+                if (!this.state.sort) {
+                    this.setState({
+                        businessList: json.data
+                    })
+                }
+                else {
+                    this.setState({
+                        businessList: this.handleSort(json.data)
+                    });
+                }
             }
         })
     };
