@@ -76,10 +76,6 @@
 
 	var _register2 = _interopRequireDefault(_register);
 
-	var _promisePolyfill = __webpack_require__(486);
-
-	var _promisePolyfill2 = _interopRequireDefault(_promisePolyfill);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_reactStormpath2.default.init({
@@ -61226,9 +61222,15 @@
 	                } else if (!json.data) {
 	                    alert("You have not added yourself to this bar!");
 	                } else {
-	                    _this.setState({
-	                        businessList: _this.handleSort(json.data)
-	                    });
+	                    if (!_this.state.sort) {
+	                        _this.setState({
+	                            businessList: json.data
+	                        });
+	                    } else {
+	                        _this.setState({
+	                            businessList: _this.handleSort(json.data)
+	                        });
+	                    }
 	                }
 	            });
 	        };
