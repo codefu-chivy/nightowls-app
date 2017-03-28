@@ -23,7 +23,7 @@ app.use(stormpath.init(app, {
         }
     },
     application: {
-        href: "https://api.stormpath.com/v1/applications/4nZPMEfFObjB08guBXIz5a"
+        href: process.env.NIGHTHREF
     },
     web: {
         produces: ["application/json"]
