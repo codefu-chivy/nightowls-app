@@ -20,14 +20,12 @@ export default class Front extends React.Component {
         user: React.PropTypes.object
     };
     componentDidMount = () => {
-        //if (Modernizr.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.setState({
-                    coordLat: position.coords.latitude,
-                    coordLong: position.coords.longitude
-                });
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.setState({
+                coordLat: position.coords.latitude,
+                coordLong: position.coords.longitude
             });
-        //}
+        });
     }
     changeState = (json) => {
         this.setState({
