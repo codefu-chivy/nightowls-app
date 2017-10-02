@@ -143,6 +143,9 @@ export default class Front extends React.Component {
                   else {
                     image = object.image_url;
                   }
+                  if (object.name.length > 28) {
+                      object.name = object.name.slice(0, 26) + "...";
+                  }
                   return (
                       <div className="in-container" key={id}>
                         <div className="data img-container">
