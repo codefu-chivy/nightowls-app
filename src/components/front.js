@@ -125,9 +125,9 @@ export default class Front extends React.Component {
                 <h2 id="subtitle">Explore the Night</h2>
             </div>
         )
+        let location = this.state.businessList ? (<h1 id="whats-in">What's in {this.state.businessList[0].loc}?</h1>) : null;
         let list = this.state.businessList ? (
             <div className="list-container">
-              <h1 id="whats-in">What's in {this.state.businessList[0].loc}?</h1>
               <button className="sort-button" onClick={this.handleSort}>Sort by distance</button>
               <button className="sort-button" onClick={this.handleSort}>Sort by rating</button>
               <button className="sort-button" onClick={this.handleSort}>Sort by review count</button>
@@ -173,6 +173,7 @@ export default class Front extends React.Component {
               <div id="heading-whole">
                 {heading}
                 <Search changeState={this.changeState} businessList={this.state.businessList}/>
+                {location}
               </div>
               {list}
             </div>      
