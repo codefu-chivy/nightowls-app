@@ -1,13 +1,13 @@
 import React from "react";
 import {Link} from "react-router";
 import {LoginLink} from "react-router";
-import LoginLogout from "./login-logout";
+import Header from "./header";
 
 export default class MasterPage extends React.Component {
     render() {
         return (
             <div className="master">
-              <LoginLogout/>
+              <Header/>
               {this.props.children}
             </div>  
         )

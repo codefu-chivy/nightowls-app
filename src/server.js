@@ -1,51 +1,30 @@
 const express = require("express");
-const stormpath = require("express-stormpath");
 const path = require("path");
 const app = express();
 const port = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const Yelp = require("yelp");
+const fetch = require("node-fetch");
+const passwordHash = require("password-hash");
+const jwt = require("jsonwebtoken");
 const dbconnection = require("./database/dbconnection");
 const List = require("./database/list-model");
+const User = require("./database/user-model");
 
-
-
-require("dotenv").config({path: "./src/yelp2.env"});
+require("dotenv").config({path: "./src/config.env"});
 
 dbconnection();
 
-app.use(stormpath.init(app, {
-    client: {
-        apiKey: {
-            id: process.env.API_ID,
-            secret: process.env.API_SECRET
-        }
-    },
-    application: {
-        href: process.env.NIGHTHREF
-    },
-    web: {
-        produces: ["application/json"]
-    }
-}));
-
 app.use("/static", express.static(path.join(__dirname, 'static')));
 
-app.on("stormpath.ready", () => {
-    app.listen(port, (err) => {
-        if (err) {
-            throw err;
-        }
-        console.log("Listening on port 3000");
-    });
-});
+app.use(jsonParser);
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/static/index.html");
 });
 
-app.post("/api-info", jsonParser, (req, res) => {
+app.post("/api-info", (req, res) => {
     List.findOne({"location": req.body.data.loc, "query": req.body.data.query}, (err, listObj) => {
         if (err) {
             throw err;
@@ -85,7 +64,7 @@ app.post("/api-info", jsonParser, (req, res) => {
     });   
 });
 
-app.post("/add-bar", jsonParser, (req, res) => {
+app.post("/add-bar", (req, res) => {
     List.findOne({location: req.body.data.location, query: req.body.data.query}, (err, businessList) => {
         let index = 0;
         let exists = false;
@@ -124,4 +103,71 @@ app.post("/add-bar", jsonParser, (req, res) => {
         }    
     });
 });
+
+app.post("/validate-email", (req, res) => {
+    let email = req.body.email;
+    fetch(`https://api.mailgun.net/v3/address/validate?address=${email}&api_key=${process.env.MAIL_KEY_PUB}`, {
+        method: "get"
+    }).then((res) => {
+        return res.json();
+    }).then((json) => {
+        if (json.is_valid) {
+            User.findOne({email: email}, (err, obj) => {
+                if (err) {
+                    throw err;
+                }
+                obj ? res.json({success: true, alreadyExists: true}) : res.json({success: true});
+            });
+        }
+        else {
+            res.json({success: false});
+        }
+    });
+});
+
+app.post("/validate-user", (req, res) => {
+    let username = req.body.username;
+    User.findOne({username: username}, (err, obj) => {
+        obj ? res.json({valid: false}) : res.json({valid: true});
+    });
+});
+
+app.post("/register", (req, res) => {
+    let username = req.body.username;
+    let email = req.body.email;
+    let users = new User({
+        username: username,
+        password: passwordHash.generate(req.body.password),
+        email: email
+    });
+    users.save((err) => {
+        if (err) {
+            throw err;
+        }
+        res.json({success: true});
+    });
+});
+
+app.post("/login", (req, res) => {
+    let username = req.body.username;
+    let resData;
+    User.findOne({username: username}, (err, obj) => {
+        if (obj) {
+            if (passwordHash.verify(req.body.password, obj.password)) {
+                resData = {
+                    success: true,
+                    token: jwt.sign({
+                        exp: Math.floor(Date.now() / 1000) + (60 * 60),
+                        data: {username: username}
+                    }, process.env.PRIVATE_KEY)
+                }
+                res.json(resData);
+            }
+        }
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Listening on ${port}`);
+})
 

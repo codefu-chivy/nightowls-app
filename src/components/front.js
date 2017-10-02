@@ -1,6 +1,5 @@
 import React from "react";
 import Search from "./search";
-import {Authenticated} from "react-stormpath";
 import {Tooltip, OverlayTrigger} from "react-bootstrap";
 const calculateDistance = require("../calculate-distance");
 
@@ -13,12 +12,9 @@ export default class Front extends React.Component {
             coordLong: "",
             attending: false,
             sorted: 0,
+            token: sessionStorage.getItem("token")
         }
     }
-    static contextTypes = {
-        authenticated: React.PropTypes.bool,
-        user: React.PropTypes.object
-    };
     componentDidMount = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             this.setState({
@@ -84,7 +80,7 @@ export default class Front extends React.Component {
         }
     };
     handleAttend = (event, name, id, location, query) => {
-        if (!this.context.authenticated) {
+        if (!this.state.token) {
             event.preventDefault();
             alert("You must be signed in to access these features");
             return;
@@ -128,24 +124,26 @@ export default class Front extends React.Component {
         )
         let list = this.state.businessList ? (
             <div className="list-container">
+              <h1 id="whats-in">What's in {this.state.businessList[0].loc}?</h1>
               <button className="sort-button" onClick={this.handleSort}>Sort by distance</button>
               <button className="sort-button" onClick={this.handleSort}>Sort by rating</button>
               <button className="sort-button" onClick={this.handleSort}>Sort by review count</button>
-            <h1 id="whats-in">What's in {this.state.businessList[0].loc}?</h1>
               {this.state.businessList.map((object, id) => {
-                  /*let tooltip = object.users.length ? (<Tooltip id={id}>{object.users.map((user) => {
-                      <ul>
-                        <li>{user}</li>
-                      </ul>  
-                  })}</Tooltip>) : "No users";*/
+                  let image;
                   let distance = this.state.coordLat ? calculateDistance(object.location.coordinate.latitude, object.location.coordinate.longitude, this.state.coordLat, this.state.coordLong) : null;
                   if (distance) {
                       object.distance = distance;
                   }
+                  if (!object.hasOwnProperty("image_url")) {
+                    image = "../static/images/no_image.jpg";
+                  }
+                  else {
+                    image = object.image_url;
+                  }
                   return (
                       <div className="in-container" key={id}>
                         <div className="data img-container">
-                          <img className="busImg" src={object.image_url} alt={object.name}/>
+                          <img className="busImg" src={image} alt={object.name}/>
                           <img className="ratings" src={object.rating_img_url_large} alt="ratings"/>
                           <h4>{object.review_count} reviews</h4>
                           <a className="twitter" href={"http://twitter.com/intent/tweet?text=I'm going to " + object.name + " tonight"} target="_blank" onClick={(event) => this.handleAttend(event, object.name, object.id, object.loc, object.query)}><button className="add-remove">I'm going here tonight</button></a>
