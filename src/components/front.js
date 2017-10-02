@@ -1,6 +1,7 @@
 import React from "react";
 import Search from "./search";
 import {Tooltip, OverlayTrigger} from "react-bootstrap";
+import jwtDecode from "jwt-decode";
 const calculateDistance = require("../calculate-distance");
 
 export default class Front extends React.Component {
@@ -80,15 +81,17 @@ export default class Front extends React.Component {
         }
     };
     handleAttend = (event, name, id, location, query) => {
+        let username;
         if (!this.state.token) {
             event.preventDefault();
             alert("You must be signed in to access these features");
             return;
         }
+        username = jwtDecode(this.state.token).data.username;
         let text = event.target.textContent;
         fetch("/add-bar", {
             method: "post",
-            body: JSON.stringify({data: {name: name, username: this.context.user.givenName, id: id, location: location, query: query, text: text}}),
+            body: JSON.stringify({data: {name: name, username: username, id: id, location: location, query: query, text: text}}),
             headers: {
                 "Content-Type": "application/json"
             }
