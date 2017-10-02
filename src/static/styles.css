@@ -24,6 +24,21 @@ input:not(#search) {
 input:not(#search):focus {
     border-bottom-color: blue;
 }
+.red {
+    border-bottom-color: red !important;
+}
+.green {
+    border-bottom-color: green !important;
+}
+#user-exists {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 150px;
+}
+#email-exists {
+    margin-top: 10px;
+}
 /*input:not(#search):-moz-placeholder {
     position: relative;
     bottom: 0px;
@@ -105,6 +120,7 @@ label:hover {
     background-color: dodgerblue;
     font-weight: bold;
     transition: all .5s;
+    box-shadow: 0px 0px 8px grey;
 }
 #sign-up:hover, #sign-in:hover, #logout:hover {
     background-color: #77E2FC;
@@ -160,6 +176,7 @@ label:hover {
     letter-spacing: .5px;
     transition: all .5s;
     margin-top: 20px;
+    box-shadow: 0px 0px 8px grey;
 }
 .search-buttons:hover {
     background-color: #77E2FC;

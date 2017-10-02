@@ -76,6 +76,7 @@ export default class Register extends React.Component {
             this.shouldEnableButton();
           });
         }
+        console.log(pass.classList)
       });
     }
 
@@ -134,6 +135,7 @@ export default class Register extends React.Component {
             alreadyExists: false
           });
         }
+        console.log(email.classList)
         callback(json.success);
       });
     }
@@ -142,6 +144,12 @@ export default class Register extends React.Component {
       let user = document.getElementById("username");
       let userVal = user.value;
       let userData;
+      if (!userVal) {
+        if (user.classList.contains("green")) {
+          user.classList.remove("green");
+        }
+        return;
+      }
       this.setState({
         username: userVal
       }, () => {
@@ -257,8 +265,8 @@ export default class Register extends React.Component {
         
     }
     render() {
-        let invalidUser = this.state.notValidUser ? (<p>Username already exists</p>) : null;
-        let emailExists = this.state.alreadyExists ? (<p>Email already exists! Try logging in</p>) : null;
+        let invalidUser = this.state.notValidUser ? (<p id="user-exists">Username already exists</p>) : null;
+        let emailExists = this.state.alreadyExists ? (<p id="email-exists">Email already exists! Try logging in</p>) : null;
         return (
             <div id="register">
               <div>

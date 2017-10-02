@@ -71,7 +71,12 @@ export default class Login extends React.Component {
         }
     }
     render() {
-        let incorrect = this.state.invalid ? (<p>Invalid username and password combination.</p>) : null;
+        let incorrect = this.state.invalid ? (<p id="invalid-pass">Invalid username and password combination.</p>) : null;
+        setTimeout(() => {
+            this.setState({
+                invalid: false
+            });
+        }, 5000);
         return (
             <div id="login">
               <div>  

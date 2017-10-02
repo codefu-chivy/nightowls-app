@@ -163,6 +163,12 @@ app.post("/login", (req, res) => {
                 }
                 res.json(resData);
             }
+            else {
+                res.json({success: false});
+            }
+        }
+        else {
+            res.json({success: false});
         }
     });
 });
